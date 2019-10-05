@@ -1,0 +1,4 @@
+<div class="testing-only">Home component is showing</div>
+<app-list></app-list>
+<app-newitem *ngIf="newItemShown"></app-newitem>
+<button *ngIf="!newItemShown" (click)="toggleNewItem()">New Item</button>

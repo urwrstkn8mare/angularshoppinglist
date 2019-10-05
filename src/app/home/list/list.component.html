@@ -1,0 +1,12 @@
+<div class="testing-only">List component is showing</div>
+
+<div class="list-container">
+  <ul>
+    <li *ngFor="let item of items">
+      <span
+        ><strong>{{ item.name }}</strong> | x{{ item.quantity }} |
+        {{ item.costTotal }}</span
+      >
+    </li>
+  </ul>
+</div>
