@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { NewitemComponent } from "./home/newitem/newitem.component";
 import { ListComponent } from "./home/list/list.component";
+import { ShoppinglistitemsService } from "./shoppinglistitems.service";
+import { MaterialModule } from "./material.module";
 
 @NgModule({
   declarations: [
@@ -18,8 +20,13 @@ import { ListComponent } from "./home/list/list.component";
     NewitemComponent,
     ListComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule
+  ],
+  providers: [ShoppinglistitemsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
-<app-list></app-list>
-<app-newitem *ngIf="newItemShown" (toggle)="toggleNewItem()"></app-newitem>
-<button *ngIf="!newItemShown" (click)="toggleNewItem()">New Item</button>
+<main>
+  <app-list></app-list>
+  <app-newitem></app-newitem>
+</main>
