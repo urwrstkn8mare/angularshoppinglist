@@ -8,7 +8,9 @@ import { ShoppingListItem } from "src/app/shopping-list-item";
   styleUrls: ["./list.component.scss"]
 })
 export class ListComponent implements OnInit {
-  constructor(private shoppinglistitemsService: ShoppinglistitemsService) {}
+  constructor(private shoppinglistitemsService: ShoppinglistitemsService) {
+    console.log("ListComponent works");
+  }
 
   items: ShoppingListItem[];
 

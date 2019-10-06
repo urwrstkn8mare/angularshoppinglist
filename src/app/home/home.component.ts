@@ -14,7 +14,9 @@ import {
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent {
-  constructor() {}
+  constructor() {
+    console.log("HomeComponent works");
+  }
 
   newItemShown = false;
 
