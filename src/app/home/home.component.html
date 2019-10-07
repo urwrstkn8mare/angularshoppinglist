@@ -1,0 +1,21 @@
+<!-- TODO Finish this -->
+
+<nb-card>
+  <nb-card-header>
+    <span>
+      <strong style="float:left; font-size: 2em;">Items List</strong>
+      <strong style="float:right;">
+        <button nbButton status="primary">Add</button>
+        <button nbButton status="warning">Edit</button>
+      </strong>
+    </span>
+  </nb-card-header>
+  <nb-list>
+    <nb-list-item *ngFor="let item of items">
+      <span>
+        <strong>{{ item.name }}</strong>
+        | x{{ item.quantity }} | ${{ item.costTotal }}
+      </span>
+    </nb-list-item>
+  </nb-list>
+</nb-card>

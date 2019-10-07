@@ -7,6 +7,7 @@ import { ShoppingListItem } from "./shopping-list-item";
 export class ShoppinglistitemsService {
   constructor() {}
 
+  // tslint:disable-next-line: variable-name
   private _items: ShoppingListItem[] = /* Just for testing: */ [
     new ShoppingListItem("Milk", 2, 5.0),
     new ShoppingListItem("Chocolate Bar", 5, 0.5),

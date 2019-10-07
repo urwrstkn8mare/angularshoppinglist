@@ -8,19 +8,16 @@ import { HomeComponent } from "./home/home.component";
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { ShoppinglistitemsService } from "./shoppinglistitems.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NbThemeModule, NbLayoutModule } from "@nebular/theme";
-import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { NebularModule } from "./nebular.module";
+import { NbThemeModule } from "@nebular/theme";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PagenotfoundComponent],
   imports: [
+    NbThemeModule.forRoot({ name: "default" }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: "default" }),
-    NbLayoutModule,
-    NbEvaIconsModule,
     NebularModule
   ],
   providers: [ShoppinglistitemsService],
