@@ -1,17 +1,9 @@
 import { NgModule } from "@angular/core";
 
-import {
-  NbLayoutModule,
-  NbCardModule,
-  NbListModule,
-  NbButtonModule,
-  NbIconModule,
-  NbCheckboxModule,
-  NbInputModule
-} from "@nebular/theme";
+import { NbLayoutModule, NbCardModule, NbListModule, NbCheckboxModule } from "@nebular/theme";
 
 @NgModule({
-  imports: [NbIconModule, NbLayoutModule, NbCardModule, NbListModule, NbButtonModule, NbCheckboxModule, NbInputModule],
-  exports: [NbIconModule, NbLayoutModule, NbCardModule, NbListModule, NbButtonModule, NbCheckboxModule, NbInputModule]
+  imports: [NbLayoutModule, NbCardModule, NbListModule, NbCheckboxModule],
+  exports: [NbLayoutModule, NbCardModule, NbListModule, NbCheckboxModule]
 })
 export class NebularModule {}
