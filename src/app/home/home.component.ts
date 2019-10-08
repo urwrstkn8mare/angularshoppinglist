@@ -13,8 +13,10 @@ export class HomeComponent implements OnInit {
   }
 
   items: ShoppingListItem[];
+  disableEditing: boolean;
 
   ngOnInit() {
     this.items = this.shoppinglistitemsservice.items;
+    this.disableEditing = true;
   }
 }

@@ -1,21 +1,54 @@
-<!-- TODO Finish this -->
+<!-- TODO: Finish this -->
 
 <nb-card>
   <nb-card-header>
     <span>
-      <strong style="float:left; font-size: 2em;">Items List</strong>
+      <h2 style="float:left; vertical-align: middle;">Items List</h2>
       <strong style="float:right;">
-        <button nbButton status="primary">Add</button>
-        <button nbButton status="warning">Edit</button>
+        <button
+          nbButton
+          status="warning"
+          style="margin-right: 10px"
+          (click)="disableEditing = !disableEditing"
+          disable="!disableEditing"
+        >
+          Enable Editing
+        </button>
+        <button nbButton status="info">Show Completed</button>
       </strong>
     </span>
   </nb-card-header>
+
   <nb-list>
-    <nb-list-item *ngFor="let item of items">
-      <span>
-        <strong>{{ item.name }}</strong>
-        | x{{ item.quantity }} | ${{ item.costTotal }}
-      </span>
+    <nb-list-item *ngFor="let item of items" (click)="item.bought = !item.bought" style="vertical-align: middle">
+      <div class="non-editing" *ngIf="disableEditing">
+        <div style="float: left">
+          <nb-checkbox [value]="item.bought">
+            <strong style="font-size: 15px; vertical-align: middle; font-weight: bold">{{ item.name }}</strong>
+            <span style="font-size: 15px; vertical-align: middle; font-weight: normal">- ${{ item.costTotal }}</span>
+          </nb-checkbox>
+        </div>
+        <div style="float: right; padding: 0.375rem 0 0.375rem 0;">
+          <strong>{{ item.quantity }}</strong>
+        </div>
+      </div>
+      <div class="editing" *ngIf="!disableEditing">
+        <nb-checkbox [value]="item.bought">
+          <input type="text" nbInput fieldSize="tiny" placeholder="adsfasdfasdfsdfsafsdfdgdfgdfgdfasdfasdfasdfasd" />
+          <input type="text" nbInput fieldSize="tiny" placeholder="priceeeee" />
+        </nb-checkbox>
+        <div style="float: right; padding: 0.375rem 0 0.375rem 0;">
+          <input type="text" nbInput fieldSize="tiny" placeholder="quantityyy" />
+        </div>
+      </div>
     </nb-list-item>
   </nb-list>
+
+  <nb-card-footer>
+    <div *ngIf="!disableEditing" style="text-align: center">
+      <button nbButton status="primary" style="margin-right: 10px;">Add Item</button>
+      <button nbButton hero status="success" style="margin-right: 10px;">Save and quit</button>
+      <button nbButton status="danger">Quit without saving</button>
+    </div>
+  </nb-card-footer>
 </nb-card>

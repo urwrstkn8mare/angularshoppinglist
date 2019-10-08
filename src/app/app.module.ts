@@ -10,14 +10,17 @@ import { ShoppinglistitemsService } from "./shoppinglistitems.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NebularModule } from "./nebular.module";
 import { NbThemeModule } from "@nebular/theme";
+import { ItemeditorComponent } from "./home/itemeditor/itemeditor.component";
+import { NbEvaIconsModule } from "@nebular/eva-icons";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PagenotfoundComponent],
+  declarations: [AppComponent, HomeComponent, PagenotfoundComponent, ItemeditorComponent],
   imports: [
     NbThemeModule.forRoot({ name: "default" }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NbEvaIconsModule,
     NebularModule
   ],
   providers: [ShoppinglistitemsService],
