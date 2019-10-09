@@ -9,19 +9,20 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { ShoppinglistitemsService } from "./shoppinglistitems.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NebularModule } from "./nebular.module";
-import { NbThemeModule } from "@nebular/theme";
-import { ItemeditorComponent } from "./home/itemeditor/itemeditor.component";
+import { NbThemeModule, NbDialogModule, NbDialogRef } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { EditComponent } from "./home/edit/edit.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PagenotfoundComponent, ItemeditorComponent],
+  declarations: [AppComponent, HomeComponent, PagenotfoundComponent, EditComponent],
   imports: [
     NbThemeModule.forRoot({ name: "default" }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NbEvaIconsModule,
-    NebularModule
+    NebularModule,
+    NbDialogModule.forRoot({})
   ],
   providers: [ShoppinglistitemsService],
   bootstrap: [AppComponent]
