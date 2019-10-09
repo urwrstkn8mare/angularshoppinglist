@@ -62,20 +62,67 @@
 
 <!-- TODO: Basically remake everything -->
 
+<p>{{ disableEditing }}</p>
+
 <nb-card>
-  <nb-card-header><h6 style="float: left;">header</h6></nb-card-header>
+  <nb-card-header>
+    <h2 style="float: left;">
+      Shopping List App
+    </h2>
+    <button
+      nbButton
+      status="primary"
+      [disabled]="!disableEditing"
+      style="float: right"
+      (click)="disableEditing = false"
+    >
+      Edit
+    </button>
+  </nb-card-header>
   <nb-list>
     <!-- TODO Make it work with the service and make it entirely clickable and more. -->
-    <nb-list-item style="vertical-align: middle;">
-      <nb-checkbox style="margin-right: -1.5rem;">
-        <div style="display: inline-block; font-size: 15px;">
-          <strong>Chocolate</strong>
-          <span style="font-weight: normal">- $5.98</span>
+    <nb-list-item
+      style="vertical-align: middle;"
+      *ngFor="let item of items"
+      (click)="item.bought = !item.bought"
+    >
+      <nb-checkbox style="margin-right: -1.5rem;" [value]="item.bought">
+        <div style="display: inline-block; font-size: 15px;" *ngIf="disableEditing">
+          <strong>{{ item.name }}</strong>
+          <span style="font-weight: normal">{{ " " }}- ${{ item.costTotal }}</span>
+        </div>
+        <div *ngIf="!disableEditing">
+          <input
+            type="text"
+            nbInput
+            fieldSize="small"
+            placeholder="{{ item.name }}"
+            style="margin: 15px"
+          />
+          <input
+            type="text"
+            nbInput
+            fieldSize="small"
+            placeholder="{{ item.costEach }}"
+            style="width: 65px"
+          />
+          <label>{{ " " }}* {{ item.quantity }} = {{ item.costTotal }}</label>
         </div>
       </nb-checkbox>
-      <div style="float: right; padding: 0.575rem 0 0.575rem 0;">
-        <strong>6</strong>
+      <div style="float: right; padding: 0.575rem 0 0.575rem 0;" *ngIf="disableEditing">
+        <strong>{{ item.quantity }}</strong>
+      </div>
+      <div style="float: right; padding: 1.2rem 0 1.2rem 0;" *ngIf="!disableEditing">
+        <input
+          type="text"
+          nbInput
+          fieldSize="small"
+          placeholder="{{ item.quantity }}"
+          style="width: 65px"
+        />
       </div>
     </nb-list-item>
   </nb-list>
 </nb-card>
+
+<script></script>
