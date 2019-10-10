@@ -7,7 +7,8 @@ import {
   NbCheckboxModule,
   NbButtonModule,
   NbInputModule,
-  NbIconModule
+  NbIconModule,
+  NbTreeGridModule
 } from "@nebular/theme";
 
 @NgModule({
@@ -27,7 +28,8 @@ import {
     NbCheckboxModule,
     NbButtonModule,
     NbInputModule,
-    NbIconModule
+    NbIconModule,
+    NbTreeGridModule
   ]
 })
 export class NebularModule {}
