@@ -1,30 +1,20 @@
-// TODO: GET THIS WORKING
+// TODO: Ok now make this do what it was supposed to do
 
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { NbDialogRef } from "@nebular/theme";
 
 @Component({
   template: `
-    <nb-card class="dialog-card">
-      <nb-card-header>header</nb-card-header>
+    <nb-card>
+      <nb-card-header>{{ index }}</nb-card-header>
       <nb-card-body>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt.
-        Vestibulum vulputate maximus massa vel tristique. Suspendisse potenti. Duis aliquet purus
-        sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim malesuada
-        turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum
-        nunc vel tincidunt. Vestibulum egestas mi nec iaculis varius. Morbi in risus sed sapien
-        ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet et.
+        {{ index }}
       </nb-card-body>
-      <nb-card-footer>
-        <button nbButton status="primary" (click)="dismiss()">Dismiss Dialog</button>
-      </nb-card-footer>
     </nb-card>
   `
 })
 export class EditComponent {
-  constructor(protected ref: NbDialogRef<EditComponent>) {}
+  @Input() index: number;
 
-  dismiss() {
-    this.ref.close();
-  }
+  constructor(protected ref: NbDialogRef<EditComponent>) {}
 }

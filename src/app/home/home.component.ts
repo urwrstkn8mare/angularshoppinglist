@@ -39,6 +39,10 @@ export class HomeComponent implements OnInit {
 
   openEditor(index: number) {
     this.items[index].bought = !this.items[index].bought;
-    const dialogRef = this.dialogService.open(EditComponent, {});
+    this.dialogService.open(EditComponent, {
+      context: {
+        index
+      }
+    });
   }
 }

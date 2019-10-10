@@ -21,9 +21,10 @@ import { EditComponent } from "./home/edit/edit.component";
     AppRoutingModule,
     BrowserAnimationsModule,
     NbEvaIconsModule,
-    NebularModule,
-    NbDialogModule.forRoot({})
+    NbDialogModule.forRoot(),
+    NebularModule
   ],
+  entryComponents: [EditComponent],
   providers: [ShoppinglistitemsService],
   bootstrap: [AppComponent]
 })
