@@ -14,7 +14,7 @@ import { ShoppinglistitemsService } from "src/app/shoppinglistitems.service";
           <div class="col-sm-12">
             <div class="form-group">
               <label class="label">Item Name</label>
-              <input nbInput type="text" fullWidth value="VALUE HERE" />
+              <input nbInput type="text" fullWidth [value]="item.name" />
             </div>
           </div>
         </div>
