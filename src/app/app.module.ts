@@ -12,6 +12,7 @@ import { NebularModule } from "./nebular.module";
 import { NbThemeModule, NbDialogModule, NbDialogRef } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { EditComponent } from "./home/edit/edit.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PagenotfoundComponent, EditComponent],
@@ -22,7 +23,8 @@ import { EditComponent } from "./home/edit/edit.component";
     BrowserAnimationsModule,
     NbEvaIconsModule,
     NbDialogModule.forRoot(),
-    NebularModule
+    NebularModule,
+    ReactiveFormsModule
   ],
   entryComponents: [EditComponent],
   providers: [ShoppinglistitemsService],

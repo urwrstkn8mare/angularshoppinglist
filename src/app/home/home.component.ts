@@ -40,9 +40,7 @@ export class HomeComponent implements OnInit {
   openEditor(index: number) {
     this.items[index].bought = !this.items[index].bought;
     this.dialogService.open(EditComponent, {
-      context: {
-        index
-      }
+      context: { index: 1 }
     });
   }
 }
