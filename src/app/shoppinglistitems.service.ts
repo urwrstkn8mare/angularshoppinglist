@@ -7,12 +7,19 @@ import { ShoppingListItem } from "./shopping-list-item";
 export class ShoppinglistitemsService {
   constructor() {}
 
-  // tslint:disable-next-line: variable-name
   private _items: ShoppingListItem[] = /* Just for testing: */ [
     new ShoppingListItem("Milk", 2, 5.0),
     new ShoppingListItem("Chocolate Bar", 5, 0.5),
     new ShoppingListItem("Cookies", 3, 2)
   ];
+
+  get items(): ShoppingListItem[] {
+    return this._items;
+  }
+
+  set items(value: ShoppingListItem[]) {
+    this._items = value;
+  }
 
   addItem(item: ShoppingListItem, index?: number): ShoppingListItem {
     if (index) {
@@ -22,14 +29,6 @@ export class ShoppinglistitemsService {
     }
 
     return item;
-  }
-
-  get items(): ShoppingListItem[] {
-    return this._items;
-  }
-
-  set items(value: ShoppingListItem[]) {
-    this._items = value;
   }
 
   removeItem(index: number): ShoppingListItem {
@@ -42,13 +41,33 @@ export class ShoppinglistitemsService {
     return arrayAboutToBeCleared;
   }
 
-  changeIndex(firstIndex: number, secondIndex: number): ShoppingListItem {
-    const item = this._items.splice(firstIndex, 1)[0];
-    this._items.splice(secondIndex, 0, item);
+  changeIndex(oldIndex: number, newIndex: number): ShoppingListItem {
+    const item = this._items.splice(oldIndex, 1)[0];
+    this._items.splice(newIndex, 0, item);
     return item;
   }
 
   getIndex(name: string): number {
     return this._items.findIndex(item => (item.name === name ? true : false));
+  }
+
+  replaceItem(
+    index: number,
+    name?: string,
+    quantity?: number,
+    costEach?: number,
+    bought?: boolean
+  ) {
+    const itemMemory = this.items[index];
+    this.removeItem(index);
+    this.addItem(
+      new ShoppingListItem(
+        name === undefined || name === null ? itemMemory.name : name,
+        quantity === undefined || name === null ? itemMemory.quantity : quantity,
+        costEach === undefined || name === null ? itemMemory.costEach : costEach,
+        bought === undefined || name === null ? itemMemory.bought : bought
+      )
+    );
+    this.changeIndex(this.getIndex(itemMemory.name), index);
   }
 }

@@ -6,3 +6,17 @@
   @include nb-theme-global();
   @include nb-bootstrap-global();
 }
+
+// Global Styles by me
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.line-through {
+  text-decoration: line-through;
+}

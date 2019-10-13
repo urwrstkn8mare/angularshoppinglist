@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shoppinglistapp-43": {
+      "hosting": {
+        "angularshoppinglist": [
+          "shoppinglistapp-43"
+        ]
+      }
+    }
+  }
+}

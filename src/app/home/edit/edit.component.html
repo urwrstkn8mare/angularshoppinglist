@@ -1,0 +1,57 @@
+<nb-card style="width: 500px">
+  <nb-card-header>Edit Item</nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="myForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label class="label text-hint">Item Name</label>
+            <input nbInput type="text" fullWidth formControlName="name" />
+            <span class="caption-2 text-danger" *ngIf="formName.invalid && formName.touched">
+              The item must have a name!
+            </span>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Item Quantity</label>
+            <input nbInput type="number" fullWidth formControlName="quantity" />
+            <span
+              class="caption-2 text-danger"
+              *ngIf="formQuantity.invalid && formQuantity.touched"
+            >
+              You must at least have one item and you can't have fractional quantities!
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="label">Item Cost Each</label>
+            <input nbInput type="number" step="any" fullWidth formControlName="costEach" />
+            <span
+              class="caption-2 text-danger"
+              *ngIf="formCostEach.invalid && formCostEach.touched"
+            >
+              It must be a proper price with the decimal point and all.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button
+      nbButton
+      status="primary"
+      style="margin-right: 10px;"
+      (click)="save()"
+      [disabled]="myForm.invalid"
+    >
+      Save
+    </button>
+    <button nbButton status="warning" (click)="close()">Cancel</button>
+  </nb-card-footer>
+</nb-card>

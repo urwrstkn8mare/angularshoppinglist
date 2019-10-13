@@ -19,8 +19,11 @@ export class HomeComponent implements OnInit {
 
   items: ShoppingListItem[];
   listItemHoverStates: boolean[] = [];
+  showingCompleted: boolean;
 
   ngOnInit() {
+    this.showingCompleted = false;
+
     this.items = this.shoppinglistitemsservice.items;
     for (const item of this.items) {
       this.listItemHoverStates.push(false);
@@ -29,18 +32,51 @@ export class HomeComponent implements OnInit {
 
   mouseEnterListItem(index: number) {
     this.listItemHoverStates[index] = true;
-    console.log(this.listItemHoverStates);
   }
 
   mouseLeaveListItem(index: number) {
     this.listItemHoverStates[index] = false;
-    console.log(this.listItemHoverStates);
   }
 
+  // TODO: Whenever you click Edit it toggles bought. Fix it.
   openEditor(index: number) {
-    this.items[index].bought = !this.items[index].bought;
+    this.toggleBought(index);
+
     this.dialogService.open(EditComponent, {
-      context: { index: 1 }
+      context: { index, new: false }
     });
+  }
+
+  toggleShowingCompleted() {
+    this.showingCompleted = !this.showingCompleted;
+  }
+
+  hideListItemQuestion(index: number): boolean {
+    const itemBoughtState = this.shoppinglistitemsservice.items[index].bought;
+    if (!itemBoughtState) {
+      return false;
+    } else {
+      if (this.showingCompleted) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  add() {
+    this.dialogService.open(EditComponent, {
+      context: { new: true }
+    });
+  }
+
+  toggleBought(index: number) {
+    this.shoppinglistitemsservice.replaceItem(
+      index,
+      undefined,
+      undefined,
+      undefined,
+      !this.items[index].bought
+    );
   }
 }

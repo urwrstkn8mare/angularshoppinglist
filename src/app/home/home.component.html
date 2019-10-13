@@ -1,108 +1,55 @@
-<!-- <nb-card>
-  <nb-card-header>
-    <span>
-      <h2 style="float:left; vertical-align: middle;">Items List</h2>
-      <strong style="float:right;">
-        <button
-          nbButton
-          status="warning"
-          style="margin-right: 10px"
-          (click)="disableEditing = !disableEditing"
-          disable="!disableEditing"
-        >
-          Enable Editing
-        </button>
-        <button nbButton status="info">Show Completed</button>
-      </strong>
-    </span>
-  </nb-card-header>
-
-  <nb-list>
-    <nb-list-item *ngFor="let item of items" (click)="item.bought = !item.bought" style="vertical-align: middle">
-      <div class="non-editing" *ngIf="disableEditing">
-        <div style="float: left">
-          <nb-checkbox [value]="item.bought">
-            <strong style="font-size: 15px; vertical-align: middle; font-weight: bold">
-              {{ item.name }}
-            </strong>
-            <span style="font-size: 15px; vertical-align: middle; font-weight: normal">
-              - ${{ item.costTotal }}
-            </span>
-          </nb-checkbox>
-        </div>
-        <div style="float: right; padding: 0.375rem 0 0.375rem 0;">
-          <strong>{{ item.quantity }}</strong>
-        </div>
-      </div>
-      <div class="editing" *ngIf="!disableEditing">
-        <nb-checkbox [value]="item.bought">
-          <input
-            type="text"
-            nbInput
-            fieldSize="tiny"
-            placeholder="adsfasdfasdfsdfsafsdfdgdfgdfgdfasdfasdfasdfasd"
-          />
-          <input type="text" nbInput fieldSize="tiny" placeholder="priceeeee" />
-        </nb-checkbox>
-        <div style="float: right; padding: 0.375rem 0 0.375rem 0;">
-          <input type="text" nbInput fieldSize="tiny" placeholder="quantityyy" />
-        </div>
-      </div>
-    </nb-list-item>
-  </nb-list>
-
-  <nb-card-footer>
-    <div *ngIf="!disableEditing" style="text-align: center">
-      <button nbButton status="primary" style="margin-right: 10px;">Add Item</button>
-      <button nbButton hero status="success" style="margin-right: 10px;">Save and quit</button>
-      <button nbButton status="danger">Quit without saving</button>
-    </div>
-  </nb-card-footer>
-</nb-card> -->
-
-<!-- TODO: Basically remake everything -->
-
 <nb-card>
   <nb-card-header>
     <h2 style="float: left;">
       Shopping List App
     </h2>
-    <button nbButton status="primary" style="float: right" (click)="openEditor(1)">
-      Add
-    </button>
+    <div class="float-right">
+      <button nbButton status="info" (click)="toggleShowingCompleted()" style="margin-right: 15px;">
+        <div *ngIf="!showingCompleted">Show Completed</div>
+        <div *ngIf="showingCompleted">Hide Completed</div>
+      </button>
+
+      <button nbButton status="primary" hero (click)="add()">Add</button>
+    </div>
   </nb-card-header>
   <nb-list>
-    <!-- TODO Make it work with the service and make it entirely clickable and more. -->
     <nb-list-item
       style="vertical-align: middle;"
       *ngFor="let item of items; let i = index"
-      (click)="item.bought = !item.bought"
+      (click)="toggleBought(i)"
       (mouseenter)="mouseEnterListItem(i)"
       (mouseleave)="mouseLeaveListItem(i)"
+      [hidden]="hideListItemQuestion(i)"
     >
-      <nb-checkbox style="margin-right: -1.5rem; margin-left: 1rem;" [checked]="item.bought">
-        <div style="display: inline-block; font-size: 15px;">
-          <strong>{{ item.name }}</strong>
-          <span style="font-weight: normal">{{ " " }}- ${{ item.costTotal }}</span>
+      <div>
+        <nb-checkbox style="margin-right: -1.5rem; margin-left: 1rem;" [checked]="item.bought">
+          <div
+            style="display: inline-block; font-size: 15px;"
+            [class]="item.bought ? 'line-through' : ''"
+          >
+            <span>{{ item.name }}</span>
+            <span style="font-weight: normal">{{ " " }}- ${{ item.costTotal }}</span>
+          </div>
+        </nb-checkbox>
+        <div style="float: right">
+          <div
+            style="padding: 0.575rem 0 0.575rem 0; display: inline-block; margin-right: 15px;"
+            [class]="item.bought ? 'line-through' : ''"
+          >
+            <strong>{{ item.quantity }}</strong>
+          </div>
+          <button
+            nbButton
+            status="warning"
+            *ngIf="listItemHoverStates[i]"
+            style="display: inline-block"
+            size="small"
+            (click)="openEditor(i)"
+          >
+            Edit
+          </button>
         </div>
-      </nb-checkbox>
-      <div style="float: right">
-        <div style="padding: 0.575rem 0 0.575rem 0; display: inline-block; margin-right: 15px;">
-          <strong>{{ item.quantity }}</strong>
-        </div>
-        <button
-          nbButton
-          status="warning"
-          *ngIf="listItemHoverStates[i]"
-          style="display: inline-block"
-          size="small"
-          (click)="openEditor(i)"
-        >
-          Edit
-        </button>
       </div>
     </nb-list-item>
   </nb-list>
 </nb-card>
-
-<script></script>
