@@ -61,7 +61,10 @@ export class EditComponent implements OnInit {
             item.quantity,
             [Validators.required, Validators.pattern("^\\d+$"), Validators.min(1)]
           ],
-          costEach: [item.costEach, [Validators.required, Validators.pattern("(\\d+\\.\\d{1,2})")]]
+          costEach: [
+            item.costEach,
+            [Validators.required, Validators.pattern("^\\$?\\d+(\\.\\d{1,2})?$")]
+          ]
         });
       });
 
