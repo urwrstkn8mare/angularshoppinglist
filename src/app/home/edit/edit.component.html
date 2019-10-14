@@ -1,7 +1,7 @@
 <nb-card style="width: 500px">
   <nb-card-header>Edit Item</nb-card-header>
   <nb-card-body>
-    <div [formGroup]="myForm">
+    <div [formGroup]="myForm" *ngIf="!loading">
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
@@ -42,7 +42,7 @@
       </div>
     </div>
   </nb-card-body>
-  <nb-card-footer>
+  <nb-card-footer *ngIf="!loading">
     <button
       nbButton
       status="primary"

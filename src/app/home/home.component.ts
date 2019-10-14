@@ -11,10 +11,19 @@ import { EditComponent } from "./edit/edit.component";
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private shoppinglistitemsservice: ShoppinglistitemsService,
+    private shoppinglistitemsService: ShoppinglistitemsService,
     private dialogService: NbDialogService
   ) {
     console.log("HomeComponent works");
+    this.items = this.shoppinglistitemsService.items;
+    this.shoppinglistitemsService.collection.snapshotChanges().subscribe(array => {
+      this.items = [];
+      array.forEach(item => {
+        this.items.push(
+          this.shoppinglistitemsService.convertDoc(item.payload.doc.data(), item.payload.doc.id)
+        );
+      });
+    });
   }
 
   items: ShoppingListItem[];
@@ -23,11 +32,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.showingCompleted = false;
-
-    this.items = this.shoppinglistitemsservice.items;
-    for (const item of this.items) {
-      this.listItemHoverStates.push(false);
-    }
+    this.shoppinglistitemsService.itemsPromise().then(array => {
+      this.items = array;
+      for (const {} of this.items) {
+        this.listItemHoverStates.push(false);
+      }
+    });
   }
 
   mouseEnterListItem(index: number) {
@@ -40,11 +50,17 @@ export class HomeComponent implements OnInit {
 
   // TODO: Whenever you click Edit it toggles bought. Fix it.
   openEditor(index: number) {
-    this.toggleBought(index);
-
-    this.dialogService.open(EditComponent, {
-      context: { index, new: false }
-    });
+    this.listItemHoverStates[index] = false;
+    this.dialogService
+      .open(EditComponent, {
+        context: {
+          index,
+          new: false
+        }
+      })
+      .onClose.subscribe(() => {
+        this.toggleBought(index);
+      });
   }
 
   toggleShowingCompleted() {
@@ -52,7 +68,8 @@ export class HomeComponent implements OnInit {
   }
 
   hideListItemQuestion(index: number): boolean {
-    const itemBoughtState = this.shoppinglistitemsservice.items[index].bought;
+    const itemBoughtState = this.items[index].bought;
+
     if (!itemBoughtState) {
       return false;
     } else {
@@ -65,13 +82,11 @@ export class HomeComponent implements OnInit {
   }
 
   add() {
-    this.dialogService.open(EditComponent, {
-      context: { new: true }
-    });
+    this.dialogService.open(EditComponent, { context: { new: true } });
   }
 
-  toggleBought(index: number) {
-    this.shoppinglistitemsservice.replaceItem(
+  async toggleBought(index: number) {
+    return this.shoppinglistitemsService.replaceItem(
       index,
       undefined,
       undefined,

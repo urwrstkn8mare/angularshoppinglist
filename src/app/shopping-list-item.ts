@@ -3,10 +3,19 @@ export class ShoppingListItem {
     private _name: string,
     private _quantity: number,
     private _costEach: number,
-    private _bought?: boolean
+    private _bought?: boolean,
+    private _id?: string
   ) {
     if (!_bought) {
       this._bought = false;
+    }
+  }
+
+  get id() {
+    if (this._id) {
+      return this._id;
+    } else {
+      return undefined;
     }
   }
 
