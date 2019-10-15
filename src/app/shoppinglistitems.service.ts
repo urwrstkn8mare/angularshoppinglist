@@ -44,7 +44,7 @@ export class ShoppinglistitemsService {
     });
   }
 
-  addItem(item: ShoppingListItem) {
+  async addItem(item: ShoppingListItem) {
     // if (index) {
     //   this._items.splice(index, 0, item);
     // } else {
@@ -53,7 +53,7 @@ export class ShoppinglistitemsService {
 
     // return item;
 
-    return this.collection
+    return await this.collection
       .add({
         name: item.name,
         quantity: item.quantity,
@@ -62,6 +62,7 @@ export class ShoppinglistitemsService {
       })
       .then(docRef => {
         console.log("Document written with ID: ", docRef.id);
+        return docRef.id;
       })
       .catch(err => {
         throw err;
@@ -101,12 +102,15 @@ export class ShoppinglistitemsService {
     // return item;
   }
 
-  async getIndex(name: string) {
+  // TODO: Fix this
+  async getIndex(id: string) {
+    console.log(id);
+
     return await this.itemsPromise().then(array => {
       const matching: number[] = [];
 
       array.forEach((item, index) => {
-        if (item.name === name) {
+        if (item.id === id) {
           matching.push(index);
         }
       });

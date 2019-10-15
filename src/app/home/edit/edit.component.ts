@@ -30,42 +30,53 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.saving = false;
 
-    if (this.new) {
-      this.shoppinglistitemsService.addItem(new ShoppingListItem("", 1, 0.0));
-      this.shoppinglistitemsService.getIndex("").then(index => {
-        this.index = index;
+    new Promise((resolve, reject) => {
+      if (this.new) {
+        this.shoppinglistitemsService.addItem(new ShoppingListItem("", 1, 0.0)).then(id => {
+          this.shoppinglistitemsService.getIndex(id).then(index => {
+            this.index = index;
 
-        this.ref.onClose.subscribe(() => {
-          if (!this.saving) {
-            this.shoppinglistitemsService.removeItem(this.index);
-            this.saving = false;
-          }
+            this.ref.onClose.subscribe(() => {
+              if (!this.saving) {
+                this.shoppinglistitemsService.removeItem(this.index);
+                this.saving = false;
+              }
+            });
+
+            resolve();
+          });
         });
-      });
-    } else {
-      if (!this.index && this.index !== 0) {
-        throw new Error("The new parameter is false and no index was provided!");
+      } else {
+        if (!this.index && this.index !== 0) {
+          const err = new Error("The new parameter is false and no index was provided!");
+          reject(err);
+        }
+        resolve();
       }
-    }
-
-    this.shoppinglistitemsService
-      .itemsPromise()
-      .then(array => {
-        return array[this.index];
+    })
+      .then(() => {
+        this.shoppinglistitemsService
+          .itemsPromise()
+          .then(array => {
+            return array[this.index];
+          })
+          .then(item => {
+            this.loading = false;
+            this.myForm = this.fb.group({
+              name: [item.name, [Validators.required]],
+              quantity: [
+                item.quantity,
+                [Validators.required, Validators.pattern("^\\d+$"), Validators.min(1)]
+              ],
+              costEach: [
+                item.costEach,
+                [Validators.required, Validators.pattern("^\\$?\\d+(\\.\\d{1,2})?$")]
+              ]
+            });
+          });
       })
-      .then(item => {
-        this.loading = false;
-        this.myForm = this.fb.group({
-          name: [item.name, [Validators.required]],
-          quantity: [
-            item.quantity,
-            [Validators.required, Validators.pattern("^\\d+$"), Validators.min(1)]
-          ],
-          costEach: [
-            item.costEach,
-            [Validators.required, Validators.pattern("^\\$?\\d+(\\.\\d{1,2})?$")]
-          ]
-        });
+      .catch(err => {
+        throw err;
       });
 
     // this.item = this.shoppinglistitemsService.items[this.index];
