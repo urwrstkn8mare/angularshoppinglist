@@ -29,9 +29,9 @@ export class ShoppinglistitemsService {
       });
   }
 
-  removeItem(index: number) {
+  async removeItem(index: number) {
     // return this._items.splice(index, 1)[0];
-    this.itemsPromise().then(array => {
+    return await this.itemsPromise().then(array => {
       this.collection
         .doc(array[index].id)
         .delete()

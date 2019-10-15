@@ -43,15 +43,16 @@
     </div>
   </nb-card-body>
   <nb-card-footer *ngIf="!loading">
+    <button nbButton status="warning" (click)="close()" style="margin-right: 10px;">Cancel</button>
     <button
       nbButton
       status="primary"
-      style="margin-right: 10px;"
       (click)="save()"
+      style="margin-right: 10px;"
       [disabled]="myForm.invalid"
     >
       Save
     </button>
-    <button nbButton status="warning" (click)="close()">Cancel</button>
+    <button nbButton status="danger" (click)="removeItem()" *ngIf="!new">Remove Item</button>
   </nb-card-footer>
 </nb-card>

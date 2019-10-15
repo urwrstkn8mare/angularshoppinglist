@@ -19,6 +19,8 @@ export class EditComponent implements OnInit {
 
   loading = true;
 
+  removing: boolean;
+
   saving: boolean;
 
   constructor(
@@ -114,6 +116,12 @@ export class EditComponent implements OnInit {
         this.saving = true;
         this.ref.close();
       });
+  }
+
+  removeItem() {
+    this.shoppinglistitemsService.removeItem(this.index).then(() => {
+      this.ref.close({ removed: true });
+    });
   }
 
   close() {

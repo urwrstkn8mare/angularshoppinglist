@@ -58,8 +58,14 @@ export class HomeComponent implements OnInit {
           new: false
         }
       })
-      .onClose.subscribe(() => {
-        this.toggleBought(index);
+      .onClose.subscribe((obj?) => {
+        if (!obj === undefined) {
+          if (!obj.removed) {
+            this.toggleBought(index);
+          }
+        } else {
+          this.toggleBought(index);
+        }
       });
   }
 
