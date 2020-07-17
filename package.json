@@ -1,6 +1,6 @@
 {
   "name": "angularshoppinglist",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "lint": "ng lint",
     "start": "ng serve",
